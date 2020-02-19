@@ -4,9 +4,10 @@ const Users = require('./users-model.js');
 const restricted = require('../auth/restricted-middleware.js');
 const checkDepartment = require('../auth/check-department-middleware.js');
 
-router.get('/', restricted, checkDepartment('herm'), (req,res) => {
-    
-    Users.find()
+
+
+router.get('/', restricted, checkDepartment(), (req,res) => {
+    Users.findByDepartment(`${req.decodedJwt.department[0]}`)
         .then(users => {
             res.status(200).json(users)
         })

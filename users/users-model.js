@@ -5,6 +5,7 @@ module.exports = {
     find,
     findBy,
     findById,
+    findByDepartment,
   };
 
   function find() {
@@ -16,6 +17,12 @@ module.exports = {
         .select('id', 'username', 'password', 'department')
         .where(search)
   }
+
+  function findByDepartment(search) {
+    return db('users')
+      .select('id', 'username', 'password', 'department')
+      .where('users.department', search)
+}
 
   function findById(id) {
     return db('users')
